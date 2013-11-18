@@ -14,8 +14,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.solidnw.gametimer.R;
 import com.solidnw.gametimer.activities.GroupActivity;
@@ -54,20 +52,7 @@ public class GroupManagementFragment extends Fragment {
         super.onResume();
         updateList();
     }
-
-    public void onRemove(View view)
-    {
-        // TODO this is not persistent
-        System.out.println("remove pressed.");
-        // Get the member name via the parent layout (the row)
-        RelativeLayout rl = (RelativeLayout) view.getParent();
-        TextView tv = (TextView) rl.findViewById(R.id.removeitem_textview_content);
-        String group = tv.getText().toString();
-
-        mDbHelper.deleteGroup(group);
-        updateList();
-    }
-
+    
     private void init() {
         mGroupsList = (ListView) mRootView.findViewById(R.id.groupmgmtfrag_listview_groups);
         mContext = getActivity().getApplicationContext();
@@ -77,7 +62,7 @@ public class GroupManagementFragment extends Fragment {
                 PreferencesConstants.PREFERENCES_NAME, 0);
         mTheme = settings.getInt(PreferencesConstants.PREF_KEY_THEME,
                 PreferencesConstants.DEFAULT_THEME);
-
+        
         fillExistingGroups();
     }
 

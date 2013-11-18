@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.solidnw.gametimer.R;
+import com.solidnw.gametimer.model.DrawerConstants;
 import com.solidnw.gametimer.model.PreferencesConstants;
 
 public class DrawerListAdapter extends BaseAdapter {
@@ -36,11 +37,26 @@ public class DrawerListAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View row = inflater.inflate(R.layout.list_item_drawer, parent, false);
-        ImageView image = (ImageView) row.findViewById(R.id.draweritem_image);
-        TextView content = (TextView) row.findViewById(R.id.draweritem_textview_content);
+        ImageView icon = (ImageView) row.findViewById(R.id.draweritem_image);
+        TextView textViewContent = (TextView) row.findViewById(R.id.draweritem_textview_content);
 
-        content.setText(this.getItem(position));
+        String content = this.getItem(position);
+        
+        textViewContent.setText(content);
 
+        if(DrawerConstants.ITEM_GROUP_MANAGEMENT.equals(content)) {
+        	icon.setImageResource(R.drawable.group);
+        }
+        else if(DrawerConstants.ITEM_PLAYER_MANAGEMENT.equals(content)) {
+        	icon.setImageResource(R.drawable.person);
+        }
+        else if(DrawerConstants.ITEM_SELECT_GAME_MODE.equals(content)) {
+        	icon.setImageResource(R.drawable.home);
+        }
+        else if(DrawerConstants.ITEM_STATISTICS.equals(content)) {
+        	icon.setImageResource(R.drawable.chart);
+        }
+        
         /*
          * if(isLightTheme == false) {
          * btn.setImageResource(R.drawable.delete_light); }

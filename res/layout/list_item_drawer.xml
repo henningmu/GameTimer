@@ -8,9 +8,10 @@
 
     <ImageView
         android:id="@+id/draweritem_image"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@drawable/settings" />
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:src="@drawable/settings"
+        android:layout_centerVertical="true" />
 
     <TextView
         android:id="@+id/draweritem_textview_content"

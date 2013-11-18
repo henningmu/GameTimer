@@ -6,19 +6,22 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.solidnw.gametimer.R;
+import com.solidnw.gametimer.database.DatabaseHelper;
 
 /**
  * @author SickSta
  * @since 21:13:45 - 19.02.2013
  * @project AndroidGameTimer
  */
-public class RemoveItemListAdapter extends BaseAdapter
+public class RemoveItemListAdapter extends BaseAdapter implements OnClickListener
 {
     private int mTheme;
     private ArrayList<String> mContent;
@@ -52,7 +55,8 @@ public class RemoveItemListAdapter extends BaseAdapter
 
         ImageButton btn = (ImageButton) row.findViewById(R.id.removeitem_button_remove);
         TextView name = (TextView) row.findViewById(R.id.removeitem_textview_content);
-
+        
+        btn.setOnClickListener(this);
         name.setText(this.getItem(position));
 
         if (mTheme == android.R.style.Theme_Holo)
@@ -99,4 +103,15 @@ public class RemoveItemListAdapter extends BaseAdapter
         }
         this.notifyDataSetChanged();
     }
+
+	public void onClick(View view) {
+		RelativeLayout rl = (RelativeLayout) view.getParent();
+        TextView tv = (TextView) rl.findViewById(R.id.removeitem_textview_content);
+        String group = tv.getText().toString();
+
+        DatabaseHelper dbHelper = new DatabaseHelper(mContext);
+        dbHelper.deleteGroup(group);
+        
+        updateContent(dbHelper.getAllGroupNames());
+	}
 }
