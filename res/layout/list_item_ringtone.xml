@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".MainActivity" >
+
+    <TextView
+        android:id="@+id/ringtoneitem_textview_header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:background="@android:attr/listChoiceBackgroundIndicator"
+        android:text="@string/ringtone"
+        android:textAppearance="@android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/ringtoneitem_textview_current"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/ringtoneitem_textview_header"
+        android:background="@android:attr/listChoiceBackgroundIndicator"
+        android:text="@string/choose_ringtone"
+        android:textAppearance="@android:attr/textAppearanceSmall" />
+
+</RelativeLayout>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    tools:context=".MainActivity" >
+
+    <EditText
+        android:id="@+id/groupfrag_edittext_groupname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/group_name" />
+
+    <TextView
+        android:id="@+id/groupfrag_textview_manage_member"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/groupfrag_edittext_groupname"
+        android:layout_marginTop="16dp"
+        android:text="@string/manage_members"
+        android:textAppearance="@android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/groupfrag_button_add_member"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/groupfrag_textview_manage_member"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/person"
+        android:drawablePadding="8dp"
+        android:onClick="onAddPlayer"
+        android:text="@string/add_member" />
+
+    <ListView
+        android:id="@+id/groupfrag_listview_members"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/groupfrag_button_add_member"
+        android:layout_marginTop="16dp" >
+    </ListView>
+
+</RelativeLayout>

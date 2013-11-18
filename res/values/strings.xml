@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">GameTimer</string>
+    <string name="act_name_group_management">Group Management</string>
+    <string name="act_name_player_management">Group Management</string>
+    <string name="round_time_heading">Set Round Time</string>
+    <string name="game_time_heading">Set Game Time</string>
+    <string name="use_round_time">Use fixed Round Time</string>
+    <string name="use_game_time">Use fixed Game Time</string>
+    <string name="start_game">Start the game!</string>
+    <string name="new_group">Add a new group</string>
+    <string name="new_player">Add a new player</string>
+    <string name="remaining_game_time">Remaining game time:</string>
+    <string name="group_management">Group Management</string>
+    <string name="group_mgmt">Group Mgmt.</string>
+    <string name="group_name">Group Name</string>
+    <string name="player_management">Player Management</string>
+    <string name="player_mgmt">Player Mgmt.</string>
+    <string name="reverse_direction">Reverse direction</string>
+    <string name="edit_existing_player">Edit existing player</string>
+    <string name="edit_group">Edit Group</string>
+    <string name="edit_time">Edit Time</string>
+    <string name="edit_player">Edit Player</string>
+    <string name="manage_members">Manage Members</string>
+    <string name="add_player">Add Player</string>
+    <string name="add_member">Add Member</string>
+    <string name="player_name">Player Name</string>
+    <string name="player_color">Color of Player</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="menu_settings">Settings</string>
+    <string name="remove">Remove</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="ringtone">Final Tone</string>
+    <string name="choose_ringtone">Choose Final Tone</string>
+    <string name="unknown_tone">Unknown Final Tone</string>
+    <string name="switch_theme">Switch Theme</string>
+    <string name="help">Help</string>
+    <string name="about">About</string>
+	<string name="open_drawer">Open Navigation Drawer</string>
+	<string name="close_drawer">Close Navigation Drawer</string>
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    tools:context=".MainActivity" >
+
+    <ImageView
+        android:id="@+id/draweritem_image"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/settings" />
+
+    <TextView
+        android:id="@+id/draweritem_textview_content"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_toRightOf="@+id/draweritem_image"
+        android:background="?android:attr/listChoiceBackgroundIndicator"
+        android:focusable="false"
+        android:gravity="center_vertical"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/black" />
+
+</RelativeLayout>
