@@ -23,7 +23,7 @@ import android.widget.TextView;
 
 import com.solidnw.gametimer.R;
 //import com.solidnw.gametimer.activities.PlayerActivity.ColorAdapter;
-import com.solidnw.gametimer.adapter.RemoveItemListAdapter;
+import com.solidnw.gametimer.adapter.RemoveGroupListAdapter;
 import com.solidnw.gametimer.database.DatabaseHelper;
 import com.solidnw.gametimer.model.GradientHelper;
 import com.solidnw.gametimer.model.IntentConstants;

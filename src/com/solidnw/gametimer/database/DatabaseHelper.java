@@ -329,7 +329,7 @@ public class DatabaseHelper
 	public void deleteGroup(String groupName)
 	{
 		// TODO: Check Input values of this method
-		groupName		= groupName.trim();
+		// groupName		= groupName.trim();
 		String groupId	= getGroupIDForName(groupName);
 		dbLayer 		= new DatabaseLayer(context);
 		database		= dbLayer.getDatabase();		

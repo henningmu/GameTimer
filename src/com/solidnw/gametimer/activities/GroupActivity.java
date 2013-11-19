@@ -2,31 +2,147 @@ package com.solidnw.gametimer.activities;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.solidnw.gametimer.R;
-import com.solidnw.gametimer.adapter.RemoveItemListAdapter;
+import com.solidnw.gametimer.adapter.DrawerListAdapter;
 import com.solidnw.gametimer.database.DatabaseHelper;
+import com.solidnw.gametimer.fragments.GroupFragment;
+import com.solidnw.gametimer.listener.DrawerItemClickListener;
+import com.solidnw.gametimer.model.DrawerConstants;
 import com.solidnw.gametimer.model.IntentConstants;
+import com.solidnw.gametimer.model.PreferencesConstants;
 
-public class GroupActivity// extends Activity implements OnItemClickListener
-{	
+public class GroupActivity extends FragmentActivity
+{
+	private int mTheme;
+	private DrawerLayout mDrawerLayout;
+    private ListView mDrawerListView;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private ArrayList<String> mDrawerContent;
+    private GroupFragment mGroupFragment;
+    private String mInitialName;
+    
+    public void onCreate(Bundle savedInstanceState)
+    {
+        setTheme();
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_group);
+        
+        init();
+    }
+    
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.actionbar_edit, menu);
+        
+        if (mTheme == android.R.style.Theme_Holo) {
+            menu.getItem(0).setIcon(R.drawable.save_light);
+            menu.getItem(1).setIcon(R.drawable.cancel_light);
+        }  
+
+        return true;
+    }
+    
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
+
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+    
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
+        switch (item.getItemId())
+        {
+            case R.id.cancel:
+                finish();
+                return true;
+            case R.id.save:
+            	saveGroup();
+            	return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+    	// make the fragment work with the result
+    	super.onActivityResult(requestCode, resultCode, data);
+    }
+    
+    private void setTheme() {
+        mTheme = getSharedPreferences(PreferencesConstants.PREFERENCES_NAME, 0).
+                getInt(PreferencesConstants.PREF_KEY_THEME, PreferencesConstants.DEFAULT_THEME);
+
+        setTheme(mTheme);
+    }
+    
+    private void init() {
+        initNavigationDrawer();
+        
+        Intent intent = getIntent();
+        mInitialName = "";
+        if(intent != null) {
+        	mInitialName = intent.getStringExtra(IntentConstants.MSG_GROUP);
+        }
+        
+        mGroupFragment = new GroupFragment();
+        mGroupFragment.setGroupname(mInitialName);
+        
+        getSupportFragmentManager().
+                beginTransaction().
+                add(R.id.groupact_content_layout, mGroupFragment).
+                commit();
+    }
+    
+    private void initNavigationDrawer() {
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.groupact_drawerlayout);
+        mDrawerListView = (ListView) findViewById(R.id.listview_drawer);
+        mDrawerContent = DrawerConstants.getAllItems();
+
+        mDrawerListView.setAdapter(new DrawerListAdapter(this, mDrawerContent));
+        mDrawerListView.setOnItemClickListener(new DrawerItemClickListener(this));
+
+        // Allow toggling navigation drawer via app icon
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+        {
+            mDrawerToggle = new ActionBarDrawerToggle(
+                    this, mDrawerLayout, R.drawable.ic_drawer,
+                    R.string.open_drawer, R.string.close_drawer);
+            mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+            getActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+    }
+    
+    private void saveGroup() {
+    	String currentGroupname = mGroupFragment.getCurrentGroupname();
+    	ArrayList<String> currentMembers = mGroupFragment.getCurrentMembers();
+    	DatabaseHelper dbHelper = new DatabaseHelper(this);
+    	
+    	dbHelper.saveGroup(mInitialName, currentGroupname,currentMembers);
+    	finish();
+    }
+    
 //    // TODO: set "edit *groupname* or so as title
 //	// ===========================================================
 //	// Constants

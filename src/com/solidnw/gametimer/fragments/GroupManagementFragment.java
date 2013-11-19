@@ -17,7 +17,7 @@ import android.widget.ListView;
 
 import com.solidnw.gametimer.R;
 import com.solidnw.gametimer.activities.GroupActivity;
-import com.solidnw.gametimer.adapter.RemoveItemListAdapter;
+import com.solidnw.gametimer.adapter.RemoveGroupListAdapter;
 import com.solidnw.gametimer.database.DatabaseHelper;
 import com.solidnw.gametimer.model.IntentConstants;
 import com.solidnw.gametimer.model.PreferencesConstants;
@@ -29,7 +29,7 @@ public class GroupManagementFragment extends Fragment {
     private ArrayList<String> mGroups;
     private DatabaseHelper mDbHelper;
     private Context mContext;
-    private RemoveItemListAdapter mListAdapter;
+    private RemoveGroupListAdapter mListAdapter;
     private int mTheme;
 
     public GroupManagementFragment() {
@@ -47,8 +47,7 @@ public class GroupManagementFragment extends Fragment {
         return mRootView;
     }
 
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
         updateList();
     }
@@ -69,7 +68,7 @@ public class GroupManagementFragment extends Fragment {
     private void fillExistingGroups() {
         mGroups = mDbHelper.getAllGroupNames();
 
-        mListAdapter = new RemoveItemListAdapter(mContext, mGroups, mTheme);
+        mListAdapter = new RemoveGroupListAdapter(mContext, mGroups, mTheme);
         mGroupsList.setAdapter(mListAdapter);
         mGroupsList.setOnItemClickListener(new OnGroupClickListener());
     }

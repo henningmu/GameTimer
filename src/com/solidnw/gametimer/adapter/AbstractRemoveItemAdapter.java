@@ -1,4 +1,3 @@
-
 package com.solidnw.gametimer.adapter;
 
 import java.util.ArrayList;
@@ -10,36 +9,21 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.solidnw.gametimer.R;
-import com.solidnw.gametimer.database.DatabaseHelper;
 
-/**
- * @author SickSta
- * @since 21:13:45 - 19.02.2013
- * @project AndroidGameTimer
- */
-public class RemoveItemListAdapter extends BaseAdapter implements OnClickListener
-{
-    private int mTheme;
-    private ArrayList<String> mContent;
-    private Context mContext;
+public abstract class AbstractRemoveItemAdapter extends BaseAdapter implements OnClickListener{
+	protected int mTheme;
+    protected ArrayList<String> mContent;
+    protected Context mContext;
 
-    // ===========================================================
-    // Constructors
-    // ===========================================================
-    public RemoveItemListAdapter(Context context, ArrayList<String> objects, int theme)
+    public AbstractRemoveItemAdapter(Context context, ArrayList<String> objects, int theme)
     {
         mTheme = theme;
         mContent = objects;
         mContext = context;
     }
-
-    // ===========================================================
-    // Methods for/from SuperClass/Interfaces
-    // ===========================================================
 
     public View getCustomView(int position, View convertView, ViewGroup parent)
     {
@@ -94,24 +78,9 @@ public class RemoveItemListAdapter extends BaseAdapter implements OnClickListene
 
     public void updateContent(ArrayList<String> objects)
     {
-        mContent.clear();
+    	mContent.clear();    	
         mContent.addAll(objects);
-        System.out.println("Current values:");
-        for (int i = 0; i < mContent.size(); i++)
-        {
-            System.out.println("" + i + ": " + mContent.get(i));
-        }
+        
         this.notifyDataSetChanged();
     }
-
-	public void onClick(View view) {
-		RelativeLayout rl = (RelativeLayout) view.getParent();
-        TextView tv = (TextView) rl.findViewById(R.id.removeitem_textview_content);
-        String group = tv.getText().toString();
-
-        DatabaseHelper dbHelper = new DatabaseHelper(mContext);
-        dbHelper.deleteGroup(group);
-        
-        updateContent(dbHelper.getAllGroupNames());
-	}
 }
