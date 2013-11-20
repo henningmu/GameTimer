@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -23,7 +22,6 @@ import android.widget.ListView;
 
 import com.solidnw.gametimer.R;
 import com.solidnw.gametimer.activities.PlayerActivity;
-import com.solidnw.gametimer.adapter.RemoveGroupListAdapter;
 import com.solidnw.gametimer.adapter.RemoveMemberListAdapter;
 import com.solidnw.gametimer.database.DatabaseHelper;
 import com.solidnw.gametimer.model.IntentConstants;
@@ -59,21 +57,20 @@ public class GroupFragment extends Fragment implements OnClickListener {
     
     public void onResume() {
         super.onResume();
-//        TODO: Rethink this!
-//        updateList();
     }
     
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-    	if(resultCode == Activity.RESULT_OK)
-    	{  		
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+    	System.out.println("in act res");
+    	if(mDialog.isShowing()) {
+    		mDialog.dismiss();
+    	}
+    	if(resultCode == Activity.RESULT_OK){  		
     		String name = data.getStringExtra(IntentConstants.MSG_PLAYER);
-    		if(name == null || name.equals(""))
-    		{
+    		if(name == null || name.equals("")){
     			// TODO: Error message: empty name not allowed
     			return;
     		}
-  		
+    		System.out.println("Adding new one to list: " + name);
     		addNewMemberToList(name);
     	}
     }
@@ -120,7 +117,6 @@ public class GroupFragment extends Fragment implements OnClickListener {
     	}
 
         mListAdapter = new RemoveMemberListAdapter(mContext, mMembers, mTheme);
-        mListAdapter.setInitialGroupname(mGroupname);
         mMembersList.setAdapter(mListAdapter);
         mMembersList.setOnItemClickListener(new OnMemberClickListener());
     }
@@ -186,7 +182,7 @@ public class GroupFragment extends Fragment implements OnClickListener {
     private class OnPlayerClickListener implements OnItemClickListener {
     	public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
     		String selectedPlayer = adapterView.getItemAtPosition(position).toString();
-    		System.out.println("sel player: " + selectedPlayer);
+    		
     		if(selectedPlayer.equals(getString(R.string.new_player))) {
     			Intent intent = new Intent(mContext, PlayerActivity.class);
     			startActivityForResult(intent, IntentConstants.RC_MEMBERS_UPDATED);

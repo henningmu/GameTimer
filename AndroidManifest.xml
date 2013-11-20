@@ -58,7 +58,7 @@
         <activity
             android:name=".activities.PlayerActivity"
             android:label="@string/edit_player"
-            android:theme="@android:style/Theme.Dialog" >
+            android:theme="@android:style/Theme.Holo.Light" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />

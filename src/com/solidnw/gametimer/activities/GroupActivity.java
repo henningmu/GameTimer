@@ -32,8 +32,7 @@ public class GroupActivity extends FragmentActivity
     private GroupFragment mGroupFragment;
     private String mInitialName;
     
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         setTheme();
 
         super.onCreate(savedInstanceState);
@@ -42,8 +41,7 @@ public class GroupActivity extends FragmentActivity
         init();
     }
     
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.actionbar_edit, menu);
         
         if (mTheme == android.R.style.Theme_Holo) {
@@ -64,14 +62,12 @@ public class GroupActivity extends FragmentActivity
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
     
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
 
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case R.id.cancel:
                 finish();
                 return true;
@@ -83,8 +79,7 @@ public class GroupActivity extends FragmentActivity
         }
     }
     
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     	// make the fragment work with the result
     	super.onActivityResult(requestCode, resultCode, data);
     }

@@ -10,9 +10,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:background="@android:attr/listChoiceBackgroundIndicator"
         android:text="@string/ringtone"
-        android:textAppearance="@android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/ringtoneitem_textview_current"
@@ -20,8 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/ringtoneitem_textview_header"
-        android:background="@android:attr/listChoiceBackgroundIndicator"
         android:text="@string/choose_ringtone"
-        android:textAppearance="@android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/black" />
 
 </RelativeLayout>

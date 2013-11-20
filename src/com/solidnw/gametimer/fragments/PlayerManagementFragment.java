@@ -1,8 +1,8 @@
-
 package com.solidnw.gametimer.fragments;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,31 +16,31 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.solidnw.gametimer.R;
-import com.solidnw.gametimer.activities.GroupActivity;
-import com.solidnw.gametimer.adapter.RemoveGroupListAdapter;
+import com.solidnw.gametimer.activities.PlayerActivity;
+import com.solidnw.gametimer.adapter.RemovePlayerListAdapter;
 import com.solidnw.gametimer.database.DatabaseHelper;
 import com.solidnw.gametimer.model.IntentConstants;
 import com.solidnw.gametimer.model.PreferencesConstants;
 
-public class GroupManagementFragment extends Fragment {
-
+public class PlayerManagementFragment extends Fragment {
+	
     private View mRootView;
-    private ListView mGroupsList;
-    private ArrayList<String> mGroups;
+    private ListView mPlayersList;
+    private ArrayList<String> mPlayers;
     private DatabaseHelper mDbHelper;
     private Context mContext;
-    private RemoveGroupListAdapter mListAdapter;
+    private RemovePlayerListAdapter mListAdapter;
     private int mTheme;
-
-    public GroupManagementFragment() {
-    }
-
-    public void onCreate(Bundle savedInstanceState) {
+	
+	public PlayerManagementFragment(){
+	}
+	
+	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_group_management, container, false);
+        mRootView = inflater.inflate(R.layout.fragment_player_management, container, false);
 
         init();
 
@@ -52,8 +52,14 @@ public class GroupManagementFragment extends Fragment {
         updateList();
     }
     
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(resultCode == Activity.RESULT_OK) {
+			updateList();
+		}
+	}
+    
     private void init() {
-        mGroupsList = (ListView) mRootView.findViewById(R.id.groupmgmtfrag_listview_groups);
+        mPlayersList = (ListView) mRootView.findViewById(R.id.playermgmtfrag_listview_players);
         mContext = getActivity().getApplicationContext();
         mDbHelper = new DatabaseHelper(mContext);
 
@@ -62,29 +68,29 @@ public class GroupManagementFragment extends Fragment {
         mTheme = settings.getInt(PreferencesConstants.PREF_KEY_THEME,
                 PreferencesConstants.DEFAULT_THEME);
         
-        fillExistingGroups();
+        fillExistingPlayers();
     }
+    
+    private void fillExistingPlayers() {
+        mPlayers = mDbHelper.getAllPlayerNames();
 
-    private void fillExistingGroups() {
-        mGroups = mDbHelper.getAllGroupNames();
-
-        mListAdapter = new RemoveGroupListAdapter(mContext, mGroups, mTheme);
-        mGroupsList.setAdapter(mListAdapter);
-        mGroupsList.setOnItemClickListener(new OnGroupClickListener());
+        mListAdapter = new RemovePlayerListAdapter(mContext, mPlayers, mTheme);
+        mPlayersList.setAdapter(mListAdapter);
+        mPlayersList.setOnItemClickListener(new OnPlayerClickListener());
     }
-
+    
     private void updateList() {
-        mGroups = mDbHelper.getAllGroupNames();
-        mListAdapter.updateContent(mGroups);
+    	mPlayers = mDbHelper.getAllPlayerNames();
+        mListAdapter.updateContent(mPlayers);
     }
-
-    private class OnGroupClickListener implements OnItemClickListener {
+    
+    private class OnPlayerClickListener implements OnItemClickListener {
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-            String selectedGroup = adapterView.getItemAtPosition(position).toString();
+            String selectedPlayer = adapterView.getItemAtPosition(position).toString();
 
-            Intent intent = new Intent(mContext, GroupActivity.class);
-            intent.putExtra(IntentConstants.MSG_GROUP, selectedGroup);
-            startActivity(intent);
+            Intent intent = new Intent(mContext, PlayerActivity.class);
+            intent.putExtra(IntentConstants.MSG_PLAYER, selectedPlayer);
+            startActivityForResult(intent, IntentConstants.RC_PLAYERS_UPDATED);
         }
     }
 }

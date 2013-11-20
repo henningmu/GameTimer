@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/gamefrag_parent_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="16dp"
@@ -11,7 +10,7 @@
     tools:context=".MainActivity" >
 
     <EditText
-        android:id="@+id/playerdiag_edittext_playername"
+        android:id="@+id/playerfrag_edittext_playername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -23,19 +22,19 @@
     </EditText>
 
     <Spinner
-        android:id="@+id/playerdiag_spinner_colors"
+        android:id="@+id/playerfrag_spinner_colors"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/playerdiag_edittext_playername"
+        android:layout_below="@+id/playerfrag_edittext_playername"
         android:layout_marginTop="16dp" />
 
     <ListView
-        android:id="@+id/playerdiag_listview_playertone"
+        android:id="@+id/playerfrag_listview_playertone"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/playerdiag_spinner_colors"
+        android:layout_below="@+id/playerfrag_spinner_colors"
         android:layout_marginTop="16dp" />
 
 </RelativeLayout>

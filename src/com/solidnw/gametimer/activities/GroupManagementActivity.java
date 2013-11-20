@@ -30,8 +30,7 @@ public class GroupManagementActivity extends FragmentActivity
     private ArrayList<String> mDrawerContent;
     private GroupManagementFragment mManagementFragment;
 
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         setTheme();
 
         super.onCreate(savedInstanceState);
@@ -40,8 +39,7 @@ public class GroupManagementActivity extends FragmentActivity
         init();
     }
 
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.actionbar_new_group, menu);
         
         if (mTheme == android.R.style.Theme_Holo) {
@@ -61,14 +59,12 @@ public class GroupManagementActivity extends FragmentActivity
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
 
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case R.id.new_group:
                 onNewGroup();
                 return true;

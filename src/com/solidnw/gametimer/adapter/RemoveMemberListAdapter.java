@@ -2,18 +2,15 @@ package com.solidnw.gametimer.adapter;
 
 import java.util.ArrayList;
 
-import com.solidnw.gametimer.R;
-import com.solidnw.gametimer.database.DatabaseHelper;
-
 import android.content.Context;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.solidnw.gametimer.R;
+
 public class RemoveMemberListAdapter extends AbstractRemoveItemAdapter {
 
-	private String mInitialGroupname;
-	
 	public RemoveMemberListAdapter(Context context, ArrayList<String> objects, int theme) {
 		super(context, objects, theme);
 	}
@@ -26,9 +23,5 @@ public class RemoveMemberListAdapter extends AbstractRemoveItemAdapter {
         ArrayList<String> content = new ArrayList<String>(mContent);
         content.remove(member);
         updateContent(content);
-	}
-	
-	public void setInitialGroupname(String initialGroupname) {
-		mInitialGroupname = initialGroupname;
 	}
 }
