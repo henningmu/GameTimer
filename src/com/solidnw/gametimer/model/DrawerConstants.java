@@ -3,6 +3,8 @@ package com.solidnw.gametimer.model;
 
 import java.util.ArrayList;
 
+import com.solidnw.gametimer.R;
+
 public class DrawerConstants {
     public static final String ITEM_SELECT_GAME_MODE = "Game Mode";
     public static final String ITEM_GROUP_MANAGEMENT = "Group Management";

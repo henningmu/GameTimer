@@ -2,7 +2,6 @@ package com.solidnw.gametimer.activities;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -18,110 +17,111 @@ import com.solidnw.gametimer.R;
 import com.solidnw.gametimer.adapter.DrawerListAdapter;
 import com.solidnw.gametimer.fragments.PlayerManagementFragment;
 import com.solidnw.gametimer.listener.DrawerItemClickListener;
+import com.solidnw.gametimer.listener.DrawerItemClickListener.BaseActivity;
 import com.solidnw.gametimer.model.DrawerConstants;
 import com.solidnw.gametimer.model.IntentConstants;
 import com.solidnw.gametimer.model.PreferencesConstants;
 //import com.solidnw.gametimer.activities.PlayerActivity.ColorAdapter;
 
-public class PlayerManagementActivity extends FragmentActivity
+public class PlayerManagementActivity //extends FragmentActivity
 {
-	private int mTheme;
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerListView;
-    private ActionBarDrawerToggle mDrawerToggle;
-    private ArrayList<String> mDrawerContent;
-    private PlayerManagementFragment mManagementFragment;
-    
-    public void onCreate(Bundle savedInstanceState) {
-        setTheme();
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_player_management);
-        
-        init();
-    }
-    
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.actionbar_new_group, menu);
-        
-        if (mTheme == android.R.style.Theme_Holo) {
-            menu.getItem(0).setIcon(R.drawable.add_person_light);
-        }  
-
-        return true;
-    }
-    
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        mDrawerToggle.syncState();
-    }
-    
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-
-        switch (item.getItemId()) {
-            case R.id.new_group:
-                onNewPlayer();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-    
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-	  	super.onActivityResult(requestCode, resultCode, data);
-	}
-    
-    private void setTheme() {
-        mTheme = getSharedPreferences(PreferencesConstants.PREFERENCES_NAME, 0).
-                getInt(PreferencesConstants.PREF_KEY_THEME, PreferencesConstants.DEFAULT_THEME);
-
-        setTheme(mTheme);
-    }
-    
-    private void init() {
-        initNavigationDrawer();
-        
-        mManagementFragment = new PlayerManagementFragment();
-        
-        getSupportFragmentManager().
-                beginTransaction().
-                add(R.id.playermgmtact_content_layout, mManagementFragment).
-                commit();
-    }
-    
-    private void initNavigationDrawer() {
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.playermgmgtact_drawerlayout);
-        mDrawerListView = (ListView) findViewById(R.id.listview_drawer);
-        mDrawerContent = DrawerConstants.getAllItems();
-
-        mDrawerListView.setAdapter(new DrawerListAdapter(this, mDrawerContent));
-        mDrawerListView.setOnItemClickListener(new DrawerItemClickListener(this));
-
-        // Allow toggling navigation drawer via app icon
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            mDrawerToggle = new ActionBarDrawerToggle(
-                    this, mDrawerLayout, R.drawable.ic_drawer,
-                    R.string.open_drawer, R.string.close_drawer);
-            mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-            getActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-    }
-    
-    private void onNewPlayer()
-    {
-        Intent intent = new Intent(this, PlayerActivity.class);
-        startActivityForResult(intent, IntentConstants.RC_PLAYERS_UPDATED);
-    }
+//	private int mTheme;
+//    private DrawerLayout mDrawerLayout;
+//    private ListView mDrawerListView;
+//    private ActionBarDrawerToggle mDrawerToggle;
+//    private ArrayList<String> mDrawerContent;
+//    private PlayerManagementFragment mManagementFragment;
+//    
+//    public void onCreate(Bundle savedInstanceState) {
+//        setTheme();
+//
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_player_management);
+//        
+//        init();
+//    }
+//    
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.actionbar_new_player, menu);
+//        
+//        if (mTheme == android.R.style.Theme_Holo) {
+//            menu.getItem(0).setIcon(R.drawable.add_person_light);
+//        }  
+//
+//        return true;
+//    }
+//    
+//    protected void onPostCreate(Bundle savedInstanceState) {
+//        super.onPostCreate(savedInstanceState);
+//        mDrawerToggle.syncState();
+//    }
+//    
+//    public void onConfigurationChanged(Configuration newConfig) {
+//        super.onConfigurationChanged(newConfig);
+//        mDrawerToggle.onConfigurationChanged(newConfig);
+//    }
+//
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        if (mDrawerToggle.onOptionsItemSelected(item)) {
+//            return true;
+//        }
+//
+//        switch (item.getItemId()) {
+//            case R.id.new_player:
+//                onNewPlayer();
+//                return true;
+//
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
+//    
+//	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//	  	super.onActivityResult(requestCode, resultCode, data);
+//	}
+//    
+//    private void setTheme() {
+//        mTheme = getSharedPreferences(PreferencesConstants.PREFERENCES_NAME, 0).
+//                getInt(PreferencesConstants.PREF_KEY_THEME, PreferencesConstants.DEFAULT_THEME);
+//
+//        setTheme(mTheme);
+//    }
+//    
+//    private void init() {
+//        initNavigationDrawer();
+//        
+//        mManagementFragment = new PlayerManagementFragment();
+//        
+//        getSupportFragmentManager().
+//                beginTransaction().
+//                add(R.id.playermgmtact_content_layout, mManagementFragment).
+//                commit();
+//    }
+//    
+//    private void initNavigationDrawer() {
+//        mDrawerLayout = (DrawerLayout) findViewById(R.id.playermgmgtact_drawerlayout);
+//        mDrawerListView = (ListView) findViewById(R.id.listview_drawer);
+//        mDrawerContent = DrawerConstants.getAllItems();
+//
+//        mDrawerListView.setAdapter(new DrawerListAdapter(this, mDrawerContent));
+//        mDrawerListView.setOnItemClickListener(new DrawerItemClickListener(this, BaseActivity.PLAYER_MGMT, mDrawerLayout));
+//
+//        // Allow toggling navigation drawer via app icon
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+//            mDrawerToggle = new ActionBarDrawerToggle(
+//                    this, mDrawerLayout, R.drawable.ic_drawer,
+//                    R.string.open_drawer, R.string.close_drawer);
+//            mDrawerLayout.setDrawerListener(mDrawerToggle);
+//
+//            getActionBar().setDisplayHomeAsUpEnabled(true);
+//        }
+//    }
+//    
+//    private void onNewPlayer()
+//    {
+//        Intent intent = new Intent(this, PlayerActivity.class);
+//        startActivityForResult(intent, IntentConstants.RC_PLAYERS_UPDATED);
+//    }
     
 	
 //	// ===========================================================

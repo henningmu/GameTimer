@@ -19,7 +19,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="@string/group_name" />
-
+<!-- 
     <TextView
         android:id="@+id/groupfrag_textview_manage_member"
         android:layout_width="wrap_content"
@@ -29,30 +29,26 @@
         android:layout_marginTop="16dp"
         android:text="@string/manage_members"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+ -->
+    <Button
+        android:id="@+id/groupfrag_button_add_member"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/groupfrag_edittext_groupname"
+        android:layout_marginTop="16dp"
+        android:drawableLeft="@drawable/add_person"
+        android:drawablePadding="8dp"
+        android:onClick="onAddPlayer"
+        android:text="@string/add_member" />
 
     <ListView
         android:id="@+id/groupfrag_listview_members"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/groupfrag_textview_manage_member"
+        android:layout_below="@+id/groupfrag_button_add_member"
         android:layout_marginTop="16dp" >
     </ListView>
-    
-    <!--
-		TODO: design decision whether background or not
-		android:background="@android:color/transparent"
-	-->
-    <Button
-        android:id="@+id/groupfrag_button_add_member"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/groupfrag_listview_members"
-        android:layout_marginTop="16dp"
-        android:drawableLeft="@drawable/add_person"
-        android:drawablePadding="8dp"
-        android:onClick="onAddPlayer"
-        android:text="@string/add_member" />
 
 </RelativeLayout>

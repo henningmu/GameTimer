@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,6 +19,7 @@ import android.widget.TimePicker;
 
 import com.solidnw.gametimer.R;
 import com.solidnw.gametimer.activities.GameActivity;
+import com.solidnw.gametimer.adapter.GameModePagerAdapter;
 import com.solidnw.gametimer.adapter.GroupAdapter;
 import com.solidnw.gametimer.database.DatabaseHelper;
 import com.solidnw.gametimer.model.GameModeConstants;
@@ -26,6 +28,8 @@ import com.solidnw.gametimer.model.PreferencesConstants;
 
 public class GameModeFragment extends Fragment implements OnClickListener {
 
+    private GameModePagerAdapter mPagerAdapter;
+    private ViewPager mViewPager;
     private Spinner mGroupsSpinner;
     private TimePicker mTimePicker;
     private DatabaseHelper mDbHelper;
@@ -68,12 +72,20 @@ public class GameModeFragment extends Fragment implements OnClickListener {
         startActivity(intent);
     }
 
-    private void init() {
+    private void init() {    	
         Bundle arguments = getArguments();
-        mGameMode = arguments.getString(GameModeConstants.KEY);
+        if(arguments != null) {
+        	mGameMode = arguments.getString(GameModeConstants.KEY);
+        }
+        else {
+        	mGameMode = GameModeConstants.FIXED_PLAYER_TIME;
+        }
+        
+        
         mContext = getActivity().getApplicationContext();
         SharedPreferences settings = mContext.getSharedPreferences(PreferencesConstants.PREFERENCES_NAME, 0);
         mTheme = settings.getInt(PreferencesConstants.PREF_KEY_THEME, PreferencesConstants.DEFAULT_THEME);
+        
         
         initTimePicker();
 
@@ -84,7 +96,7 @@ public class GameModeFragment extends Fragment implements OnClickListener {
         mBtnStart = (Button) mRootView.findViewById(R.id.gamemodefrag_start_game_button);
         mBtnStart.setOnClickListener(this);
     }
-
+    
     private void initTimePicker() {
         mTimePicker = (TimePicker) mRootView.findViewById(R.id.gamemodefrag_time_picker);
         mTimePicker.setIs24HourView(true);
@@ -106,8 +118,8 @@ public class GameModeFragment extends Fragment implements OnClickListener {
         GroupAdapter groupAdapter = new GroupAdapter(mContext, R.id.spinneritem_text_content, mGroups, mTheme);
 
         mGroupsSpinner.setAdapter(groupAdapter);
-    }
-
+    }    
+    
     private boolean checkGroup(String groupName)
     {
         ArrayList<String> members = mDbHelper.getAllPlayerNamesOfGroup(groupName);

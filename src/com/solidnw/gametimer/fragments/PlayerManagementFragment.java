@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
@@ -53,9 +54,16 @@ public class PlayerManagementFragment extends Fragment {
     }
     
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Toast toast;
+		System.out.println("playmgmt res code: " + resultCode);
 		if(resultCode == Activity.RESULT_OK) {
 			updateList();
+			toast = Toast.makeText(mContext, R.string.player_saved, Toast.LENGTH_SHORT);			
 		}
+		else {
+			toast = Toast.makeText(mContext, R.string.action_cancelled, Toast.LENGTH_SHORT);
+		}
+		toast.show();
 	}
     
     private void init() {

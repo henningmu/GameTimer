@@ -22,9 +22,13 @@ public class DrawerListAdapter extends BaseAdapter {
     private ArrayList<String> mContent;
     private int mTheme;
 
-    public DrawerListAdapter(Context context, ArrayList<String> objects) {
+    public DrawerListAdapter(Context context, String[] objects) {
         mContext = context;
-        mContent = objects;
+        
+        mContent = new ArrayList<String>();
+        for(String object : objects) {
+        	mContent.add(object);
+        }
 
         int defaultTheme = android.R.style.Theme_Holo_Light;
         SharedPreferences sharedPrefs = context.getSharedPreferences(
@@ -43,19 +47,34 @@ public class DrawerListAdapter extends BaseAdapter {
         String content = this.getItem(position);
         
         textViewContent.setText(content);
-
-        if(DrawerConstants.ITEM_GROUP_MANAGEMENT.equals(content)) {
-        	icon.setImageResource(R.drawable.group);
+        
+        switch(position) {
+        	case 0:
+        		icon.setImageResource(R.drawable.home);
+        		break;
+        	case 1:
+        		icon.setImageResource(R.drawable.group);
+        		break;
+        	case 2:
+        		icon.setImageResource(R.drawable.person);
+        		break;
+        	case 3:
+        		icon.setImageResource(R.drawable.chart);
+        		break;
         }
-        else if(DrawerConstants.ITEM_PLAYER_MANAGEMENT.equals(content)) {
-        	icon.setImageResource(R.drawable.person);
-        }
-        else if(DrawerConstants.ITEM_SELECT_GAME_MODE.equals(content)) {
-        	icon.setImageResource(R.drawable.home);
-        }
-        else if(DrawerConstants.ITEM_STATISTICS.equals(content)) {
-        	icon.setImageResource(R.drawable.chart);
-        }
+        
+//        if(DrawerConstants.ITEM_GROUP_MANAGEMENT.equals(content)) {
+//        	icon.setImageResource(R.drawable.group);
+//        }
+//        else if(DrawerConstants.ITEM_PLAYER_MANAGEMENT.equals(content)) {
+//        	icon.setImageResource(R.drawable.person);
+//        }
+//        else if(DrawerConstants.ITEM_SELECT_GAME_MODE.equals(content)) {
+//        	icon.setImageResource(R.drawable.home);
+//        }
+//        else if(DrawerConstants.ITEM_STATISTICS.equals(content)) {
+//        	icon.setImageResource(R.drawable.chart);
+//        }
         
         /*
          * if(isLightTheme == false) {
@@ -72,7 +91,7 @@ public class DrawerListAdapter extends BaseAdapter {
     
     @Override
     public String getItem(int position) {
-        return mContent.get(position);
+    	return mContent.get(position);
     }
 
     @Override

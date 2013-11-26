@@ -60,18 +60,18 @@ public class GroupFragment extends Fragment implements OnClickListener {
     }
     
     public void onActivityResult(int requestCode, int resultCode, Intent data){
-    	System.out.println("in act res");
-    	if(mDialog.isShowing()) {
-    		mDialog.dismiss();
-    	}
     	if(resultCode == Activity.RESULT_OK){  		
     		String name = data.getStringExtra(IntentConstants.MSG_PLAYER);
     		if(name == null || name.equals("")){
     			// TODO: Error message: empty name not allowed
     			return;
     		}
-    		System.out.println("Adding new one to list: " + name);
-    		addNewMemberToList(name);
+    		
+    		addNewMemberToList(name); 
+    		
+    		if(mDialog.isShowing()) {
+        		mDialog.dismiss();
+        	}
     	}
     }
     
@@ -103,11 +103,6 @@ public class GroupFragment extends Fragment implements OnClickListener {
         
         fillMembers();
     }
-    
-//    private void updateList() {
-//    	mMembers = mDbHelper.getAllPlayerNamesOfGroup(mGroupname);
-//        mListAdapter.updateContent(mMembers);
-//    }
     
     private void fillMembers() {
     	mMembers = mDbHelper.getAllPlayerNamesOfGroup(mGroupname);

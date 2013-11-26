@@ -2,33 +2,23 @@ package com.solidnw.gametimer.activities;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
 
 import com.solidnw.gametimer.R;
-import com.solidnw.gametimer.adapter.DrawerListAdapter;
 import com.solidnw.gametimer.database.DatabaseHelper;
 import com.solidnw.gametimer.fragments.GroupFragment;
-import com.solidnw.gametimer.listener.DrawerItemClickListener;
-import com.solidnw.gametimer.model.DrawerConstants;
 import com.solidnw.gametimer.model.IntentConstants;
 import com.solidnw.gametimer.model.PreferencesConstants;
 
 public class GroupActivity extends FragmentActivity
 {
 	private int mTheme;
-	private DrawerLayout mDrawerLayout;
-    private ListView mDrawerListView;
-    private ActionBarDrawerToggle mDrawerToggle;
-    private ArrayList<String> mDrawerContent;
     private GroupFragment mGroupFragment;
     private String mInitialName;
     
@@ -37,6 +27,7 @@ public class GroupActivity extends FragmentActivity
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         
         init();
     }
@@ -52,23 +43,26 @@ public class GroupActivity extends FragmentActivity
         return true;
     }
     
+    protected void onResume() {
+    	super.onResume();
+    	if(getIntent() == null || getIntent().getStringExtra(IntentConstants.MSG_GROUP) == null) {
+    		setTitle(R.string.act_name_new_group);
+    	}    	
+    }
+    
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        mDrawerToggle.syncState();
     }
 
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
     }
     
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-
         switch (item.getItemId()) {
+        	case android.R.id.home:
             case R.id.cancel:
+            	createCancelResult();
                 finish();
                 return true;
             case R.id.save:
@@ -77,6 +71,11 @@ public class GroupActivity extends FragmentActivity
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    
+    @Override
+    public void onBackPressed() {
+        saveGroup();
     }
     
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -91,9 +90,7 @@ public class GroupActivity extends FragmentActivity
         setTheme(mTheme);
     }
     
-    private void init() {
-        initNavigationDrawer();
-        
+    private void init() {        
         Intent intent = getIntent();
         mInitialName = "";
         if(intent != null) {
@@ -109,33 +106,28 @@ public class GroupActivity extends FragmentActivity
                 commit();
     }
     
-    private void initNavigationDrawer() {
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.groupact_drawerlayout);
-        mDrawerListView = (ListView) findViewById(R.id.listview_drawer);
-        mDrawerContent = DrawerConstants.getAllItems();
-
-        mDrawerListView.setAdapter(new DrawerListAdapter(this, mDrawerContent));
-        mDrawerListView.setOnItemClickListener(new DrawerItemClickListener(this));
-
-        // Allow toggling navigation drawer via app icon
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-        {
-            mDrawerToggle = new ActionBarDrawerToggle(
-                    this, mDrawerLayout, R.drawable.ic_drawer,
-                    R.string.open_drawer, R.string.close_drawer);
-            mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-            getActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-    }
-    
     private void saveGroup() {
     	String currentGroupname = mGroupFragment.getCurrentGroupname();
     	ArrayList<String> currentMembers = mGroupFragment.getCurrentMembers();
     	DatabaseHelper dbHelper = new DatabaseHelper(this);
     	
     	dbHelper.saveGroup(mInitialName, currentGroupname,currentMembers);
+    	
+    	createOkResult(currentGroupname);
+    	
     	finish();
+    }
+    
+    private void createOkResult(String currentGroupname)
+    {
+	  	Intent resultInt = new Intent();
+	  	resultInt.putExtra(IntentConstants.MSG_GROUP, currentGroupname);
+	  	setResult(Activity.RESULT_OK, resultInt);
+    }
+    
+    private void createCancelResult() {
+    	Intent resultInt = new Intent();
+    	setResult(Activity.RESULT_CANCELED, resultInt);
     }
     
 //    // TODO: set "edit *groupname* or so as title

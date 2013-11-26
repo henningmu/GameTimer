@@ -16,7 +16,8 @@
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Holo.Light" >
+            android:theme="@android:style/Theme.Holo.Light"
+            android:configChanges="orientation|screenSize" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,7 +27,8 @@
         <activity
             android:name=".activities.GameActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Holo.Light" >
+            android:theme="@android:style/Theme.Holo.Light"
+            android:configChanges="orientation|screenSize" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
@@ -34,9 +36,9 @@
         <activity
             android:name=".activities.GroupManagementActivity"
             android:label="@string/act_name_group_management"
-            android:theme="@android:style/Theme.Holo.Light" >
+            android:theme="@android:style/Theme.Holo.Light">
             <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
+                android:name="android.support."
                 android:value=".activities.MainActivity" />
         </activity>
         <activity

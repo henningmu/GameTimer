@@ -2,15 +2,16 @@ package com.solidnw.gametimer.activities;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
@@ -26,14 +27,80 @@ import android.widget.TextView;
 
 import com.solidnw.gametimer.R;
 import com.solidnw.gametimer.database.DatabaseHelper;
+import com.solidnw.gametimer.fragments.GameFragment;
+import com.solidnw.gametimer.fragments.GroupFragment;
 import com.solidnw.gametimer.model.GradientHelper;
 import com.solidnw.gametimer.model.Group;
 import com.solidnw.gametimer.model.IntentConstants;
 import com.solidnw.gametimer.model.Player;
+import com.solidnw.gametimer.model.PreferencesConstants;
 import com.solidnw.gametimer.model.Time;
 
-public class GameActivity extends Activity
+public class GameActivity extends FragmentActivity
 {
+	private int mTheme;
+	private GameFragment mGameFragment;
+	
+    public void onCreate(Bundle savedInstanceState) {
+        setTheme();
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_game);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        
+        init();
+    }
+	
+    protected void onResume() {
+    	super.onResume();	
+    }
+    
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+    }
+    
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
+    
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {            
+            case android.R.id.home:
+            	finish();
+            	return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    
+    private void setTheme() {
+        mTheme = getSharedPreferences(PreferencesConstants.PREFERENCES_NAME, 0).
+                getInt(PreferencesConstants.PREF_KEY_THEME, PreferencesConstants.DEFAULT_THEME);
+
+        setTheme(mTheme);
+    }
+    
+    private void init() {        
+        Intent intent = getIntent();
+        
+        String groupname = intent.getStringExtra(IntentConstants.MSG_GROUP);
+        String gameMode = intent.getStringExtra(IntentConstants.MSG_GAME_MODE);
+        int hours = intent.getIntExtra(IntentConstants.MSG_HOURS, 0);
+        int minutes = intent.getIntExtra(IntentConstants.MSG_MINUTES, 0);
+        
+        mGameFragment = new GameFragment();
+        mGameFragment.setGroupname(groupname);
+        mGameFragment.setGameMode(gameMode);
+        mGameFragment.setHours(hours);
+        mGameFragment.setMinutes(minutes);
+        mGameFragment.setRetainInstance(true);
+        
+        getSupportFragmentManager().
+                beginTransaction().
+                add(R.id.gameact_content_layout, mGameFragment).
+                commit();
+    }
+    
 //    // TODO: set game mode or so as title
 //	// ===========================================================
 //	// Constants

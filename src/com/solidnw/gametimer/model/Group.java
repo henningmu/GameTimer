@@ -9,197 +9,159 @@ import java.util.Collections;
  * @since   21:21:59 - 21.01.2013
  * @project AndroidGameTimer
  */
-public class Group
-{
-//	// ===========================================================
-//	// Constants
-//	// ===========================================================
-//
-//	// ===========================================================
-//	// Fields
-//	// ===========================================================
-//	private String				name;
-//	private ArrayList<Player>	players;
-//	private ArrayList<String>	playerNames;
-//	private Player				currentPlayer;
-//	
-//	// ===========================================================
-//	// Constructors
-//	// ===========================================================
-//	public Group(String name, ArrayList<Player> players)
-//	{
-//		this.name 		= name;
-//		this.players 	= players;
-//		
-//		if(players != null)
-//		{
-//			if(players.size() != 0)
-//			{
-//				currentPlayer = players.get(0);
-//			}
-//		}
-//	}
-//	
-//	// ===========================================================
-//	// Methods for/from SuperClass/Interfaces
-//	// ===========================================================
-//	
-//	// ===========================================================
-//	// Methods
-//	// ===========================================================
-//	public void addPlayer(Player player)
-//	{
-//		if(player != null)
-//		{
-//			players.add(player);
-//			playerNames.add(player.getName());
-//			// ask if this should be persisted in the database
-//		}
-//	}
-//	
-//	public void removePlayer(Player player)
-//	{
-//		if(player != null)
-//		{
-//			players.remove(player);
-//			playerNames.remove(player.getName());
-//			// ask if this should be persisted in the database
-//		}
-//	}
-//	
-//	public void nextPlayer()
-//	{
-//		if(players != null)
-//		{
-//			int indexCurrent = players.indexOf(currentPlayer);
-//			if( indexCurrent < (players.size() - 1) )
-//			{
-//				currentPlayer = players.get(indexCurrent + 1);
-//			}
-//			else
-//			{
-//				if(indexCurrent != -1)
-//				{
-//					currentPlayer = players.get(0);
-//				}
-//			}
-//		}
-//	}
-//	
-//	public void reverseDirection()
-//	{
-//		Collections.reverse(players);
-//		nextPlayer();
-//	}
-//	
-//	public Player getPreviousPlayer()
-//	{
-//		if(players != null)
-//		{
-//			int indexCurrent = players.indexOf(currentPlayer);
-//			if( indexCurrent > 0 )
-//			{
-//				return players.get(indexCurrent - 1);
-//			}
-//			else
-//			{
-//				if(indexCurrent == 0 && players.size() != 0)
-//				{
-//					return players.get(players.size() - 1);
-//				}
-//			}
-//		}
-//		return null;
-//	}
-//	
-//	public Player getNextPlayer()
-//	{
-//		if(players != null)
-//		{
-//			int indexCurrent = players.indexOf(currentPlayer);
-//			if( indexCurrent < (players.size() - 1) )
-//			{
-//				return players.get(indexCurrent + 1);
-//			}
-//			else
-//			{
-//				if(indexCurrent != -1)
-//				{
-//					return players.get(0);
-//				}
-//			}
-//		}
-//		return null;
-//	}
-//	
-//	// ===========================================================
-//	// Getter & Setter
-//	// ===========================================================
-//	/**
-//	 * @return the name
-//	 */
-//	public String getName()
-//	{
-//		return name;
-//	}
-//	
-//	/**
-//	 * @return the players
-//	 */
-//	public ArrayList<Player> getPlayers()
-//	{
-//		return players;
-//	}
-//	
-//	/**
-//	 * @retun the playerNames
-//	 */
-//	public ArrayList<String> getPlayerNames()
-//	{
-//		return playerNames;
-//	}
-//	
-//	/**
-//	 * @return the currentPlayer
-//	 */
-//	public Player getCurrentPlayer()
-//	{
-//		return currentPlayer;
-//	}
-//	
-//	/**
-//	 * @param currentPlayer the currentPlayer to set
-//	 */
-//	public void setCurrentPlayer(Player currentPlayer)
-//	{
-//		this.currentPlayer = currentPlayer;
-//	}
-//
-//	/**
-//	 * @param name the name to set
-//	 */
-//	public void setName(String name)
-//	{
-//		this.name = name;
-//	}
-//	
-//	/**
-//	 * @param players the players to set
-//	 */
-//	public void setPlayers(ArrayList<Player> players)
-//	{
-//		if(players != null)
-//		{
-//			this.players = players;
-//			playerNames.clear();
-//			for(int i = 0; i < players.size(); i++)
-//			{
-//				playerNames.add(players.get(i).getName());
-//			}
-//		}
-//	}
-//	
-//	// ===========================================================
-//	// Inner and Anonymous Classes
-//	// ===========================================================
+public class Group {
+	
+	private String mName;
+	private ArrayList<Player> mPlayers;
+	private ArrayList<String> mPlayerNames;
+	private Player mCurrentPlayer;
+	
+	public Group(String name, ArrayList<Player> players, Time gameTime, String gameMode) {
+		mName = name;
+		mPlayers = players;
+		
+		if(mPlayers != null) {
+			if(mPlayers.size() != 0) {
+				mCurrentPlayer = mPlayers.get(0);
+			}
+		}
+		
+		setPlayersInfo(gameTime, gameMode);
+	}
+	
+	public void addPlayer(Player player) {
+		if(player != null) {
+			mPlayers.add(player);
+			mPlayerNames.add(player.getName());
+			// ask if this should be persisted in the database
+		}
+	}
+	
+	public void removePlayer(Player player) {
+		if(player != null) {
+			mPlayers.remove(player);
+			mPlayerNames.remove(player.getName());
+			// ask if this should be persisted in the database
+		}
+	}
+	
+	public void nextPlayer() {
+		if(mPlayers != null) {
+			int indexCurrent = mPlayers.indexOf(mCurrentPlayer);
+			if( indexCurrent < (mPlayers.size() - 1) ) {
+				mCurrentPlayer = mPlayers.get(indexCurrent + 1);
+			}
+			else {
+				if(indexCurrent != -1) {
+					mCurrentPlayer = mPlayers.get(0);
+				}
+			}
+		}
+	}
+	
+	public void reverseDirection() {
+		Collections.reverse(mPlayers);
+		nextPlayer();
+	}
+	
+	public Player getPreviousPlayer() {
+		if(mPlayers != null) {
+			int indexCurrent = mPlayers.indexOf(mCurrentPlayer);
+			if( indexCurrent > 0 ) {
+				return mPlayers.get(indexCurrent - 1);
+			}
+			else {
+				if(indexCurrent == 0 && mPlayers.size() != 0) {
+					return mPlayers.get(mPlayers.size() - 1);
+				}
+			}
+		}
+		return null;
+	}
+	
+	public Player getNextPlayer() {
+		if(mPlayers != null) {
+			int indexCurrent = mPlayers.indexOf(mCurrentPlayer);
+			if( indexCurrent < (mPlayers.size() - 1) ) {
+				return mPlayers.get(indexCurrent + 1);
+			}
+			else {
+				if(indexCurrent != -1) {
+					return mPlayers.get(0);
+				}
+			}
+		}
+		return null;
+	}
+	
+	private void setPlayersInfo(Time gameTime, String gameMode) {
+		for(Player player : mPlayers) {
+			player.initializeTime(gameTime);
+			player.initializeMode(gameMode);
+		}
+	}
+	
+	// ===========================================================
+	// Getter & Setter
+	// ===========================================================
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return mName;
+	}
+	
+	/**
+	 * @return the players
+	 */
+	public ArrayList<Player> getPlayers() {
+		return mPlayers;
+	}
+	
+	/**
+	 * @retun the playerNames
+	 */
+	public ArrayList<String> getPlayerNames() {
+		return mPlayerNames;
+	}
+	
+	/**
+	 * @return the currentPlayer
+	 */
+	public Player getCurrentPlayer() {
+		return mCurrentPlayer;
+	}
+	
+	/**
+	 * @param currentPlayer the currentPlayer to set
+	 */
+	public void setCurrentPlayer(Player currentPlayer) {
+		mCurrentPlayer = currentPlayer;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		mName = name;
+	}
+	
+	/**
+	 * @param players the players to set
+	 */
+	public void setPlayers(ArrayList<Player> players) {
+		if(players != null)
+		{
+			mPlayers = players;
+			mPlayerNames.clear();
+			for(int i = 0; i < players.size(); i++)
+			{
+				mPlayerNames.add(players.get(i).getName());
+			}
+		}
+	}
+	
+	// ===========================================================
+	// Inner and Anonymous Classes
+	// ===========================================================
 }

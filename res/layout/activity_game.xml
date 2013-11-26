@@ -9,14 +9,7 @@
         android:id="@+id/gameact_content_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".MainActivity" >
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/gameact_view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="16dp" />
-    </RelativeLayout>
+        tools:context=".MainActivity" />
 
     <include layout="@layout/listview_drawer" />
 

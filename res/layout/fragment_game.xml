@@ -10,13 +10,30 @@
     android:paddingTop="16dp"
     tools:context=".MainActivity" >
 
+    <TextView
+        android:id="@+id/gamefrag_textview_previous_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/previous"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/gamefrag_textview_previous_player"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/gamefrag_textview_previous_label"
+        android:textSize="22sp" />
+
     <LinearLayout
         android:id="@+id/gamefrag_linlayout_information"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:background="@color/white_layer"
-        android:orientation="horizontal" >
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/gamefrag_textview_playername"
@@ -34,5 +51,22 @@
             android:textSize="48sp"
             android:textStyle="bold" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/gamefrag_textview_next_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/gamefrag_textview_next_player"
+        android:layout_alignParentRight="true"
+        android:text="@string/next"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/gamefrag_textview_next_player"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:textSize="22sp" />
 
 </RelativeLayout>
