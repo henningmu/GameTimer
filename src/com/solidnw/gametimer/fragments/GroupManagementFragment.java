@@ -78,7 +78,6 @@ public class GroupManagementFragment extends Fragment {
 				PreferencesConstants.PREFERENCES_NAME, 0);
 		mTheme = settings.getInt(PreferencesConstants.PREF_KEY_THEME,
 				PreferencesConstants.DEFAULT_THEME);
-
 		fillExistingGroups();
 	}
 

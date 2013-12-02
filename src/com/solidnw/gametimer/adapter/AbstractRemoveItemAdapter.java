@@ -3,6 +3,7 @@ package com.solidnw.gametimer.adapter;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -46,6 +47,7 @@ public abstract class AbstractRemoveItemAdapter extends BaseAdapter implements O
         if (mTheme == android.R.style.Theme_Holo)
         {
             btn.setImageResource(R.drawable.delete_light);
+            name.setTextColor(Color.WHITE);
         }
 
         return row;

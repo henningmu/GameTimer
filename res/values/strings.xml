@@ -52,5 +52,7 @@
     <string name="unknown_tone">Unknown Final Tone</string>
     <string name="use_game_time">Use fixed Game Time</string>
     <string name="use_round_time">Use fixed Round Time</string>
+    <string name="use_dark_theme">Use dark theme</string>
+    <string name="use_light_theme">Use light theme</string>
 
 </resources>

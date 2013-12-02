@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.solidnw.gametimer.R;
 import com.solidnw.gametimer.adapter.DrawerListAdapter;
@@ -47,12 +48,33 @@ public class MainActivity extends FragmentActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		if(mFragment instanceof GameModePagerFragment) {
 			getMenuInflater().inflate(R.menu.actionbar_main, menu);
+			MenuItem menuItemMain = menu.findItem(R.id.abmain_switch_theme);
+			if(mTheme == android.R.style.Theme_Holo) {
+				menuItemMain.setTitle(R.string.use_light_theme);
+			}
+			else {
+				menuItemMain.setTitle(R.string.use_dark_theme);
+			}
 		}
 		else if(mFragment instanceof GroupManagementFragment) {
 			getMenuInflater().inflate(R.menu.actionbar_new_group, menu);
+			MenuItem newGroup = menu.findItem(R.id.new_group);
+			if(mTheme == android.R.style.Theme_Holo) {
+				newGroup.setIcon(R.drawable.add_group_light);
+			}
+			else{
+				newGroup.setIcon(R.drawable.add_group);
+			}
 		}
 		else if(mFragment instanceof PlayerManagementFragment) {
 			getMenuInflater().inflate(R.menu.actionbar_new_player, menu);
+			MenuItem newPlayer = menu.findItem(R.id.new_player);
+			if(mTheme == android.R.style.Theme_Holo) {
+				newPlayer.setIcon(R.drawable.add_person_light);
+			}
+			else {
+				newPlayer.setIcon(R.drawable.add_person);
+			}
 		}
 		
 		return super.onCreateOptionsMenu(menu);
